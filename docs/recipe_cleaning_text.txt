@@ -1,0 +1,61 @@
+# turn indicated paragraphs into new lines
+</?p> -> \r 
+<p class="MsoBodyTextIndent">
+<p .*?> -> \r
+
+# turn line breaks into returns
+</?br ?/?> -> \r
+
+# turn fixed spaces into single space
+&nbsp; -> (space)
+
+# isolate any headings on their own line
+</?h[1234568]> -> \r
+
+# Fix weird large blocks. Example:
+&lt;!--\r\r([ ./\w\W]*?)--&gt;
+
+Make <li> into new lines
+<li>|<li .*?>[ ]* -> \r    -
+</li> -> (space)
+
+Make <ul> into new lines
+<ul>|<ul .*?>[ ]* -> \r
+<ol>|<ol .*?>[ ]* -> \r/*ed: ordered list*/
+
+# remove all remaining HTML tags except for links
+<(?!\/?a(?=>|\s.*>))\/?.*?> -> (space)
+
+# replace smart quotes with regular quotes
+
+# remove various special characters
+Ä¢ -> -
+,Äú|,Äù -> ""
+‚Ñ¢ ->(tm)
+‚Äì -> --
+‚Äôs - '
+‚Äò
+‚Äò
+
+
+# change &gt; and &lt; to > < 
+
+# change other &; characters to ascii text
+
+Clean up blank lines
+[ ]+\r -> \r
+[\t]+\r -> \r
+
+# convert three or more returns to two returns
+\r\r\r* -> \r\r
+
+
+# convert two or more spaces to two spaces
+[ ]+ -> (space)
+
+convert tabs to spaces
+\t -> (space)
+or
+\t -> 4 spaces
+
+
